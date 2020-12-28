@@ -1,0 +1,103 @@
+虚拟环境创建及激活：
+linux: python3 -m venv .
+source bin/activate
+source bin/deactivate
+
+py -3 -m venv .
+cd Scripts
+activate.bat
+deactivate.bat
+
+PyPI模块版本命名规范：
+https://www.python.org/dev/peps/pep-0440
+
+PyPI官方推荐的更新方式：(20180802 17:21)
+Make sure you have the latest versions of setuptools and wheel installed:
+linux: python3 -m pip install --user --upgrade setuptools wheel
+windows: py -3 -m pip install --upgrade setuptools wheel
+
+Now run this command from the same directory where setup.py is located:
+linux: python3 setup.py sdist bdist_wheel
+windows: py -3 setup.py sdist bdist_wheel
+
+Now that you are registered, you can use twine to upload the distribution packages. You’ll need to install Twine:
+linux: python3 -m pip3 install --user --upgrade twine
+windows: py -3 -m pip install --upgrade twine
+
+Once installed, run Twine to upload all of the archives under dist:
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+正常更新版本操作：
+py -3 setup.py sdist bdist_wheel
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+twine upload --repository-url https://test.pypi.org/legacy/ dist/bc_dock_util-0.0.9*
+
+上传正式环境
+twine upload --repository-url https://upload.pypi.org/legacy/ dist/bc_dock_util-0.0.9*
+twine upload dist/bc_dock_util-0.0.9*
+
+twine upload --repository-url https://upload.pypi.org/legacy/ dist/creditutils-0.0.1*
+twine upload dist/creditutils-0.0.1*
+
+使用 pycryptodome(3.5.1) 替换 pycrypto
+
+# install 从测试地址安装模块
+pip3 install --index-url https://test.pypi.org/simple/ your-package
+pip3 install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple your-package
+pip3 install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple bc_dock_util
+pip3 install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple  -U bc_dock_util
+pip3 install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple bc_dock_util==0.0.7
+
+# upload
+py -3 setup.py check 
+py -3 setup.py sdist upload -r pypitest
+
+pip3 install twine
+Using TestPyPI with Twine
+You can upload your distributions to TestPyPI using twine by passing in the --repository-url flag
+
+$ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+The legacy in the URL above refers to the legacy API for PyPI, which may change as the Warehouse project progresses.
+
+You can see if your package has successfully uploaded by navigating to the URL https://test.pypi.org/project/<sampleproject> where sampleproject is the name of your project that you uploaded. It may take a minute or two for your project to appear on the site.
+
+
+'Development Status :: 4 - Beta',
+'Operating System :: OS Independent',
+'Intended Audience :: Developers',
+'License :: OSI Approved :: BSD License',
+'Programming Language :: Python',
+'Programming Language :: Python :: Implementation',
+'Programming Language :: Python :: 2',
+'Programming Language :: Python :: 2.7',
+'Programming Language :: Python :: 3',
+'Programming Language :: Python :: 3.4',
+'Programming Language :: Python :: 3.5',
+'Programming Language :: Python :: 3.6',
+'Topic :: Software Development :: Libraries'
+
+
+'Development Status :: 4 - Beta',
+'Operating System :: OS Independent',
+'Intended Audience :: Developers',
+'License :: OSI Approved :: BSD License',
+'Programming Language :: Python',
+'Programming Language :: Python :: Implementation',
+'Programming Language :: Python :: 3',
+'Programming Language :: Python :: 3.4',
+'Programming Language :: Python :: 3.5',
+'Programming Language :: Python :: 3.6',
+'Topic :: Software Development :: Libraries'
+
+
+'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+
+packages
+
+'cryptography>=2.3',
+'pycrypto>=2.6.1',
+'Requests>=2.19.1'
+

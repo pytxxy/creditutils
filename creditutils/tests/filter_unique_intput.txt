@@ -1,0 +1,6 @@
+CCTV-9 纪录,CCTV9纪录
+CCTV-1 综合,CCTV1综合
+CCTV-Españo,CCTVEspaño
+CCTV-2 财经,CCTV2财经
+CCTV-3 综艺,CCTV3综艺
+CCTV-3 综艺,CCTV3综艺
