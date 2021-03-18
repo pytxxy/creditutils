@@ -11,6 +11,8 @@ import codecs
 import json
 import datetime
 import time
+import math
+import random
 import creditutils.str_util as str_utils
 
 
@@ -69,6 +71,33 @@ def get_dict_obj(data_map):
         setattr(obj, name, value)
 
     return obj
+
+
+def get_random_index(items):
+    length = len(items)
+    index = int(random.uniform(0, length))
+    if index >= length:
+        index = length - 1
+
+    return index
+
+
+def get_random_item(items):
+    return items[get_random_index(items)]
+
+
+def get_str_time():
+    t = time.time()
+    t_array = time.localtime(t)
+    t_str = time.strftime('%Y-%m-%d %H:%M:%S', t_array)
+    t_ms = math.floor(math.modf(t)[0]*1000)
+    t_str_with_ms = f'{t_str}:{t_ms:03d}'
+    return t_str_with_ms
+
+
+# 打印信息后面增加时间信息
+def print_t(info):
+    print(f'{info} {get_str_time()}')
 
 
 if __name__ == '__main__':
