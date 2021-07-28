@@ -127,9 +127,9 @@ class SenderProcess:
 
         try:
             # 创建SMTP对象
-            stp = smtplib.SMTP_SSL()
+            stp = smtplib.SMTP_SSL(host=self.host)
             # 设置发件人邮箱的域名和端口
-            stp.connect(self.host, self.port)  # 连接smtp服务器
+            stp.connect(host=self.host, port=self.port)  # 连接smtp服务器
             # 可以打印出和SMTP服务器交互的所有信息
             # stp.set_debuglevel(1)
             # 登录邮箱，传递参数1：邮箱地址，参数2：邮箱密码
