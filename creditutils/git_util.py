@@ -443,12 +443,12 @@ def update_submodules(paths, modules_name, branch, need_remote=True):
         if curr_dir != dst_dir:
             os.chdir(dst_dir)
 
-        subprocess.call([_CMD_PATH, 'submodule', 'init'])
-        subprocess.call([_CMD_PATH, 'config', '-f', '.gitmodules', 'submodule.{}.branch'.format(modules_name), branch])
+        subprocess.check_call([_CMD_PATH, 'submodule', 'init'])
+        subprocess.check_call([_CMD_PATH, 'config', '-f', '.gitmodules', 'submodule.{}.branch'.format(modules_name), branch])
         if need_remote:
-            subprocess.call([_CMD_PATH, 'submodule', 'update', '--recursive', '--remote'])
+            subprocess.check_call([_CMD_PATH, 'submodule', 'update', '--recursive', '--remote'])
         else:
-            subprocess.call([_CMD_PATH, 'submodule', 'update', '--recursive'])
+            subprocess.check_call([_CMD_PATH, 'submodule', 'update', '--recursive'])
         print('update submodules success')
 
     except subprocess.CalledProcessError:
@@ -466,8 +466,8 @@ def revert_submodules(paths):
         dst_dir = os.path.abspath(paths)
         if curr_dir != dst_dir:
             os.chdir(dst_dir)
-        subprocess.call([_CMD_PATH, 'submodule', 'foreach', 'git checkout -- "*"'])
-        subprocess.call([_CMD_PATH, 'submodule', 'update', '--init'])
+        subprocess.check_call([_CMD_PATH, 'submodule', 'foreach', 'git checkout -- "*"'])
+        subprocess.check_call([_CMD_PATH, 'submodule', 'update', '--init'])
 
     except subprocess.CalledProcessError:
         raise
@@ -513,8 +513,8 @@ def git_push_tag(_dir, tag_name):
         if curr_dir != dst_dir:
             os.chdir(dst_dir)
 
-        subprocess.call([_CMD_PATH, 'tag', tag_name])
-        subprocess.call([_CMD_PATH, 'push', 'origin', tag_name])
+        subprocess.check_call([_CMD_PATH, 'tag', tag_name])
+        subprocess.check_call([_CMD_PATH, 'push', 'origin', tag_name])
     except subprocess.CalledProcessError:
         raise
     finally:
