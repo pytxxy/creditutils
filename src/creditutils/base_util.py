@@ -51,6 +51,18 @@ def is_windows_system():
 def is_linux_system():
     return 'Linux' in platform.system()
 
+def get_decimal_digits(num):
+    digit_len = 1
+    base = 10
+    result = num
+    while True:
+        result = result // base
+        if result > 0:
+            digit_len += 1
+        else:
+            break
+
+    return digit_len
 
 def get_display_font():
     if is_windows_system():
