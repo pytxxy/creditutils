@@ -34,7 +34,7 @@ class SenderProcess:
         """规范地址格式处理, 支持多个收件人"""
         return formataddr((Header(name, 'utf-8').encode(), email))
 
-    def send_mail(self, subject, content, receivers, ccs=None, images=None, files=None):
+    def send_mail(self, subject, content, receivers, ccs=None, images=None, files=None, subtype='plain'):
         mail_receivers = list()
         to_info_items = list()
         if receivers:
@@ -84,7 +84,7 @@ class SenderProcess:
         # 邮件正文内容
         body_content = content
         # 构造文本,参数1：正文内容，参数2：文本格式，参数3：编码方式
-        message_text = MIMEText(body_content, "plain", "utf-8")
+        message_text = MIMEText(body_content, subtype, "utf-8")
         # 向MIMEMultipart对象中添加文本对象
         mm.attach(message_text)
 
