@@ -113,7 +113,7 @@ def sftp_upload_file(sftp_cli, sftp_dir_path, local_file_path):
     return handle_result
 
 
-def sftp_download(sftp_cli, sftp_path, local_dir_path, callback=None):
+def sftp_download(sftp_cli, sftp_path, local_dir_path, callback=None, max_concurrent_prefetch_requests=512):
     handle_result = [SUCCESS, '']
     try:
         sftp_path = file_util.normal_unix_path(sftp_path)
@@ -127,7 +127,7 @@ def sftp_download(sftp_cli, sftp_path, local_dir_path, callback=None):
             if not os.path.isdir(local_dir_path):
                 os.makedirs(local_dir_path)
 
-            sftp_cli.get(sftp_path, local_file_path, callback=callback)
+            sftp_cli.get(sftp_path, local_file_path, callback=callback, max_concurrent_prefetch_requests=max_concurrent_prefetch_requests)
 
             handle_result = [SUCCESS, f'download {sftp_file_name} success.']
         # download dir
@@ -161,7 +161,7 @@ def is_dir(sftp_cli, path):
         return False
 
 # as_file为true时，则以拷贝远程文件的方式下载到本地，否则以普通的ssh请求分片下载文件
-def sftp_download_file(sftp_cli, sftp_file_path, local_file_path, force=True, as_file=True, callback=None):
+def sftp_download_file(sftp_cli, sftp_file_path, local_file_path, force=True, as_file=True, callback=None, max_concurrent_prefetch_requests=512):
     handle_result = [SUCCESS, '']
     try:
         sftp_file_path = file_util.normal_unix_path(sftp_file_path)
@@ -187,7 +187,7 @@ def sftp_download_file(sftp_cli, sftp_file_path, local_file_path, force=True, as
                 with sftp_cli.open(sftp_file_path, 'rb') as fp:
                     shutil.copyfileobj(fp, open(local_file_path, 'wb'))
             else:
-                sftp_cli.get(sftp_file_path, local_file_path, callback=callback)
+                sftp_cli.get(sftp_file_path, local_file_path, callback=callback, max_concurrent_prefetch_requests=max_concurrent_prefetch_requests)
 
             handle_result = [SUCCESS, f'download {sftp_file_name} success.']
         else:
