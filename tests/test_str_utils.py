@@ -4,6 +4,7 @@ Created on 2014年12月5日
 
 @author: caifh
 '''
+import pytest
 import unittest
 import creditutils.str_util as utils
 import chardet
@@ -54,6 +55,30 @@ def test_detect_encoding():
     #     print(utils.detect_encoding(src_buf))
     print(utils.decode_to_unicode(src_buf))
 
+def test_get_time_info():
+    label_begin = 'begin'
+    label_end = 'end'
+    label_expected = 'expected'
+    src_cases = [
+        {
+            label_begin: 100,
+            label_end: 159.56,
+            label_expected: '1m0s'
+        },
+        {
+            label_begin: 100,
+            label_end: 179.56,
+            label_expected: '1m20s'
+        },
+        {
+            label_begin: 100,
+            label_end: 179.36,
+            label_expected: '1m19s'
+        },
+    ]
+    for item in src_cases:
+        resutl = utils.get_time_info(item[label_begin], item[label_end])
+        assert item[label_expected] == resutl
 
 def test_maint():
     #     test_escape()
@@ -65,4 +90,10 @@ if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     #     unittest.main()
 
-    test_maint()
+    # test_maint()
+    
+    # argv = None
+    curr_file_path = __file__
+    argv = ["-s", curr_file_path]
+    # 调用pytest的main函数执行测试
+    pytest.main(argv) 

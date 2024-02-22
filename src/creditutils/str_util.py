@@ -70,9 +70,9 @@ def decode_to_unicode(src_buf):
 
 # 获取以秒为单位的两个时间点之间的差值，返回以XXmXXs的时间格式字符串
 def get_time_info(begin, end):
-    elapsed = end - begin
+    elapsed = round(end - begin)
     sec_per_min = 60
     m = elapsed // sec_per_min
     s = elapsed % sec_per_min
-    time_info = '{}m{}s'.format(round(m), round(s))
+    time_info = '{}m{}s'.format(m, s)
     return time_info
