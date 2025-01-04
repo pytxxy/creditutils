@@ -52,13 +52,15 @@ class CJsonEncoder(json.JSONEncoder):
 def measure_time(func, *args, **dicts):
     begin = time.time()
 
-    func(*args, **dicts)
+    result = func(*args, **dicts)
 
     end = time.time()
     time_info = str_utils.get_time_info(begin, end)
 
     # 输出总用时
     print('===Finished. Total time: {}==='.format(time_info))
+
+    return result
 
 
 class _Bridge:
