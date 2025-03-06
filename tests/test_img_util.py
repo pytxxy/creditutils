@@ -15,34 +15,49 @@ def test_01():
 
 
 def replace_pixel_test(src, dst, show_only=False):
-    offset = 48
-    ori_r = 208
-    ori_g = 206
-    ori_b = 192
-    dst_r = 255
-    dst_g = 255
-    dst_b = 255
+    # offset = 48
+    # ori_r = 208
+    # ori_g = 206
+    # ori_b = 192
+    # dst_r = 255
+    # dst_g = 255
+    # dst_b = 255
+    offset = 54
+    ori_r = 255
+    ori_g = 255
+    ori_b = 255
+    ori_a = 255
+    dst_r = 0
+    dst_g = 173
+    dst_b = 238
+    dst_a = 255
 
-    exclude_rect_list = [
-        [164, 185, 443, 761],
-        [123, 365, 49, 67],
-        [453, 503, 45, 77],
-        [95, 831, 663, 115],
-        [27, 863, 147, 83],
-        [139, 427, 37, 77],
-        [609, 339, 51, 153],
-        [121, 819, 561, 67]
+    # exclude_rect_list = [
+    #     [164, 185, 443, 761],
+    #     [123, 365, 49, 67],
+    #     [453, 503, 45, 77],
+    #     [95, 831, 663, 115],
+    #     [27, 863, 147, 83],
+    #     [139, 427, 37, 77],
+    #     [609, 339, 51, 153],
+    #     [121, 819, 561, 67]
+    # ]
+    exclude_rect_list=[
+        [9, 2265, 9+809, 2265+1479],
+        [2241,2353,2241+852,2353+1391],
+        [601, 2377, 601+1897, 2377+1379],
+        [1049, 793, 1049+1017, 793+1793],
     ]
 
-    img_util.replace_pixel(src, dst, (ori_r, ori_g, ori_b), (dst_r, dst_g, dst_b), offset=offset, show_only=show_only,
+    img_util.replace_pixel(src, dst, (ori_r, ori_g, ori_b, ori_a), (dst_r, dst_g, dst_b, dst_a), offset=offset, show_only=show_only,
                            excludes=exclude_rect_list)
 
 
 def test_02():
-    src_img_01 = r'E:\temp\image\h.jpg'
-    dst_img_01 = r'E:\temp\image\h_01.png'
+    src_img_01 = r'E:\document_work\myplan\蔡雨萱\IMG_20240906_201155_03_05.png'
+    dst_img_01 = r'E:\document_work\myplan\蔡雨萱\IMG_20240906_201155_03_05_03_03.png'
 
-    show_only = True
+    show_only = False
     replace_pixel_test(src_img_01, dst_img_01, show_only)
 
 
@@ -240,8 +255,9 @@ def main():
     # test_06()
     # test_07()
     # test_08()
-    test_09()
+    # test_09()
     # test_10()
+    pass
 
 
 if __name__ == '__main__':
