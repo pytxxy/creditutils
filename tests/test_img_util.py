@@ -1,6 +1,14 @@
-from PIL import Image
-import creditutils.img_util as img_util
+import os
+import sys
 
+# 将项目根目录添加到Python路径，确保模块可导入
+first_search_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..','src'))
+# print(first_search_path)
+sys.path.insert(0, first_search_path)
+import creditutils.img_util as img_util
+from creditutils.img_util import detect_image_type, ImageType
+import unittest
+from PIL import Image
 
 def test_01():
     src_img_01 = r'E:\temp\image\z.jpg'
@@ -246,6 +254,26 @@ def test_11():
         img_util.resize_image(dst_path, ratio, dst_path_resize)
 
 
+
+class TestDetectImageType(unittest.TestCase):
+    def test_detect_png(self):
+        src_img = os.path.abspath(os.path.join(os.path.dirname(__file__), 'png_example.png'))
+        img_type = detect_image_type(src_img)
+        self.assertEqual(img_type, ImageType.PNG)
+
+    def test_detect_jpeg(self):
+        src_img = os.path.abspath(os.path.join(os.path.dirname(__file__), 'jpeg_example.jpg'))
+        img_type = detect_image_type(src_img)
+        self.assertEqual(img_type, ImageType.JPEG)
+
+    def test_detect_bmp(self):
+    # Mocking the Image.open to raise IOError
+        src_img = os.path.abspath(os.path.join(os.path.dirname(__file__), 'bmp_example.bmp'))
+        img_type = detect_image_type(src_img)
+        self.assertEqual(img_type, ImageType.BMP)
+    def test_io_error(self):
+        self.assertIsNone(detect_image_type('non_existent_file'))
+
 def main():
     # test_01()
     # test_02()
@@ -257,6 +285,7 @@ def main():
     # test_08()
     # test_09()
     # test_10()
+    unittest.main()
     pass
 
 

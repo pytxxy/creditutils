@@ -3,6 +3,7 @@ from PIL import ImageDraw
 from PIL import ImageFont
 from PIL import ImageEnhance
 import math
+from enum import Enum, auto
 
 
 def is_in_range(src, target, offset):
@@ -279,3 +280,20 @@ def join_image(img_list, max_row, max_col, dst_path, dst_unit_width=None, dst_un
     # print(dst_img.size)
     dst_img.save(dst_path)
     dst_img.close()
+
+
+class AutoStrEnum(str, Enum):
+    def _generate_next_value_(name, start, count, last_values):
+        return name.lower()  # 自定义生成逻辑（例如小写）
+
+class ImageType(AutoStrEnum):
+    PNG = auto()
+    JPEG = auto()
+    WEBP = auto()
+    BMP = auto()
+def detect_image_type(file_path):
+    try:
+        with Image.open(file_path) as img:
+            return img.format.lower()  # 返回'jpeg'/'png'等格式标识[1,4](@ref)
+    except (IOError, Image.UnidentifiedImageError):
+        return None
